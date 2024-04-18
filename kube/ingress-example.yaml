@@ -4,8 +4,7 @@ metadata:
   name: example-ingress
 spec:
   rules:
-    - host: kafka-test.com
-      http:
+    - http:
         paths:
           - path: /
             pathType: Prefix
