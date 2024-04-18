@@ -70,7 +70,7 @@ jobs:
 
       - name: Update file
         run: |
-          sed -i 's|^.*image:.*|          image: lasjiny/kafka-app:release-dev_anseongjin-${{ github.sha }}|' kube/springboot.yaml
+          sed -i 's|^.*image:.*|          image: lasjiny/kafka-app:my-spring-application-release-dev_anseongjin-${{ github.sha }}|' kube/springboot.yaml
           git config user.name "lasjiny"
           git config user.email "lasjiny927@gmail.com"
           git add kube/springboot.yaml
