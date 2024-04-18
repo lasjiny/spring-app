@@ -71,9 +71,8 @@ jobs:
       - name: Update file
         run: |
           sed -i 's|^.*image:.*|          image: lasjiny/kafka-app:release-dev_anseongjin-${{ github.sha }}|' kube/springboot.yaml
-          echo "New content" > file-to-update.txt
-          git config user.name "your-github-username"
-          git config user.email "your-github-email"
-          git add file-to-update.txt
+          git config user.name "lasjiny"
+          git config user.email "lasjiny927@gmail.com"
+          git add kube/springboot.yaml
           git commit -m "Update file via GitHub Actions"
           git push
