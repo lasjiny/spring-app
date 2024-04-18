@@ -47,7 +47,7 @@ jobs:
 
       # Docker 이미지 빌드
       - name: Build Docker image
-        run: docker build . -t lasjiny/kafka-app:my-spring-application-release-dev_anseongjin-${{ github.sha }}
+        run: docker build . -t ${{ secrets.SEONGJIN_DOCKER_REPO }}:tag-${{ github.sha }}
 
 
       # Docker Hub에 로그인
@@ -59,20 +59,20 @@ jobs:
 
       # 이미지를 Docker 재태그 및 Hub에 푸시
       - name: Push Docker image to DockerHub
-        run: docker push lasjiny/kafka-app:my-spring-application-release-dev_anseongjin-${{ github.sha }}
+        run: docker push ${{ secrets.SEONGJIN_DOCKER_REPO }}:tag-${{ github.sha }}
 
-      - name: Checkout B repository
+      - name: Checkout Kubernetes manifest repository
         uses: actions/checkout@v2
         with:
-          repository: 'saas-in-the-well/saasification.v1'
-          token: ${{ secrets.SAAS_MANIFEST_REPO }}
-          ref: 'dev_anseongjin'
+          repository: ${{ secrets.SAAS_MANIFEST_REPO }}
+          token: ${{ secrets.SAAS_MANIFEST_REPO_TOKEN }}
+          ref: ${{ secrets.SEONGJIN_K8S_BRANCH }}
 
       - name: Update file
         run: |
-          sed -i 's|^.*image:.*|          image: lasjiny/kafka-app:my-spring-application-release-dev_anseongjin-${{ github.sha }}|' kube/springboot.yaml
-          git config user.name "lasjiny"
-          git config user.email "lasjiny927@gmail.com"
+          sed -i 's|^.*image:.*|          image: ${{ secrets.SEONGJIN_DOCKER_REPO }}:tag-${{ github.sha }}|' kube/springboot.yaml
+          git config user.name ${{ secrets.SEONGJIN_USERNAME }}
+          git config user.email ${{ secrets.SEONGJIN_EMAIL }}
           git add kube/springboot.yaml
           git commit -m "Update file via GitHub Actions"
           git push
