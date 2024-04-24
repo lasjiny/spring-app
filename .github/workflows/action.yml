@@ -64,8 +64,8 @@ jobs:
       - name: Checkout Kubernetes manifest repository
         uses: actions/checkout@v2
         with:
-          repository: ${{ secrets.SAAS_MANIFEST_REPO }}
-          token: ${{ secrets.SAAS_MANIFEST_REPO_TOKEN }}
+          repository: ${{ secrets.SEONGJIN_MANIFEST_REPO }}
+          token: ${{ secrets.SEONGJIN_MANIFEST_REPO_TOKEN }}
           ref: ${{ secrets.SEONGJIN_K8S_BRANCH }}
 
       - name: Update file
